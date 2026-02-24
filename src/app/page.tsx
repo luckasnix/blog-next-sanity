@@ -1,20 +1,9 @@
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-type Article = {
-  title: string;
-  excerpt: string;
-  date: string;
-  tag: string;
-};
+import { type Article, ArticleCard } from "#/components/article-card";
+import { Hero } from "#/components/hero";
 
 const articles: Article[] = [
   {
@@ -61,89 +50,25 @@ const articles: Article[] = [
   },
 ];
 
-export default function Home() {
-  return (
-    <>
-      <Box
-        sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
-          py: { xs: 8, md: 12 },
-        }}
-      >
-        <Container maxWidth="md">
-          <Stack spacing={2} alignItems="center" textAlign="center">
-            <AutoStoriesIcon sx={{ fontSize: 56 }} />
-            <Typography variant="h3" component="h1" fontWeight={700}>
-              Welcome to the Blog
-            </Typography>
-            <Typography variant="h6" component="p" sx={{ opacity: 0.85 }}>
-              Articles about web development, technology, and software
-              engineering best practices.
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              sx={{ mt: 2 }}
-            >
-              Explore articles
-            </Button>
-          </Stack>
-        </Container>
-      </Box>
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
-        <Typography variant="h4" component="h2" fontWeight={600} gutterBottom>
-          Recent Articles
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Check out the latest posts published on the blog.
-        </Typography>
-        <Grid container spacing={3}>
-          {articles.map((article) => (
-            <Grid key={article.title} size={{ xs: 12, sm: 6, md: 4 }}>
-              <Card
-                variant="outlined"
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "box-shadow 0.2s",
-                  "&:hover": { boxShadow: 4 },
-                }}
-              >
-                <CardContent
-                  sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
-                >
-                  <Chip
-                    label={article.tag}
-                    size="small"
-                    color="primary"
-                    sx={{ alignSelf: "flex-start", mb: 1.5 }}
-                  />
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    {article.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ flexGrow: 1 }}
-                  >
-                    {article.excerpt}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.disabled"
-                    sx={{ mt: 2 }}
-                  >
-                    {article.date}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </>
-  );
-}
+const Home = () => (
+  <>
+    <Hero />
+    <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
+      <Typography variant="h4" component="h2" fontWeight={600} gutterBottom>
+        Recent Articles
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        Check out the latest posts published on the blog.
+      </Typography>
+      <Grid container spacing={3}>
+        {articles.map((article) => (
+          <Grid key={article.title} size={{ xs: 12, sm: 6, md: 4 }}>
+            <ArticleCard article={article} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+  </>
+);
+
+export default Home;
