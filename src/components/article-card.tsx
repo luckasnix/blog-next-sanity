@@ -1,13 +1,16 @@
 import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 export type Article = {
   title: string;
-  excerpt: string;
+  slug: string;
+  description: string;
   date: string;
-  tag: string;
+  tags: string[];
 };
 
 export type ArticleCardProps = {
@@ -25,28 +28,37 @@ export const ArticleCard = ({ article }: ArticleCardProps) => (
       "&:hover": { boxShadow: 4 },
     }}
   >
-    <CardContent
-      sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+    <CardActionArea
+      href={`/articles/${article.slug}`}
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+      }}
     >
-      <Chip
-        label={article.tag}
-        size="small"
-        color="primary"
-        sx={{ alignSelf: "flex-start", mb: 1.5 }}
-      />
-      <Typography variant="h6" component="h3" gutterBottom>
-        {article.title}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        sx={{ flexGrow: 1 }}
+      <CardContent
+        sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
       >
-        {article.excerpt}
-      </Typography>
-      <Typography variant="caption" color="text.disabled" sx={{ mt: 2 }}>
-        {article.date}
-      </Typography>
-    </CardContent>
+        <Stack direction="row" spacing={1} sx={{ mb: 1.5, flexWrap: "wrap" }}>
+          {article.tags.map((tag) => (
+            <Chip key={tag} label={tag} size="small" color="primary" />
+          ))}
+        </Stack>
+        <Typography variant="h6" component="h3" gutterBottom>
+          {article.title}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ flexGrow: 1 }}
+        >
+          {article.description}
+        </Typography>
+        <Typography variant="caption" color="text.disabled" sx={{ mt: 2 }}>
+          {article.date}
+        </Typography>
+      </CardContent>
+    </CardActionArea>
   </Card>
 );
