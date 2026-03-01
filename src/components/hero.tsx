@@ -24,6 +24,7 @@ export const Hero = () => (
           best practices.
         </Typography>
         <Button
+          href="/explore"
           variant="contained"
           color="secondary"
           size="large"
