@@ -1,5 +1,5 @@
-import { createClient } from "next-sanity";
-import { createImageUrlBuilder } from "@sanity/image-url";
+import { createClient,  } from "next-sanity";
+import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url";
 
 export const client = createClient({
   projectId: "k7fq1ji7",
@@ -10,5 +10,4 @@ export const client = createClient({
 
 const builder = createImageUrlBuilder(client);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const urlFor = (source: any) => builder.image(source);
+export const urlFor = (source: SanityImageSource) => builder.image(source);
